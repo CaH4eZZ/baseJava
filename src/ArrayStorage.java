@@ -3,16 +3,18 @@
  */
 public class ArrayStorage {
     Resume[] storage = new Resume[10000];
+    int storageSize = 0;
 
     void clear() {
         this.storage = new Resume[10000];
+        this.storageSize = 0;
     }
 
     void save(Resume r) {
         if (r == null) return;
 
-        int storageSize = this.size();
-        this.storage[storageSize] = r;
+        this.storage[this.storageSize] = r;
+        this.storageSize++;
     }
 
     Resume get(String uuid) {
@@ -28,43 +30,35 @@ public class ArrayStorage {
         if (uuid == null || "".equals(uuid)) return;
 
         int deleteIdx = -1;
-        int storageSize = this.size();
 
-        for (int i=0;i<storageSize;i++) {
+        for (int i=0;i<this.storageSize;i++) {
             if (uuid.equals(this.storage[i].uuid)){
                 deleteIdx = i;
             }
         }
         if (deleteIdx != -1){
-            for (int k=deleteIdx;k<storageSize;k++){
+            for (int k=deleteIdx;k<this.storageSize;k++){
                 if (k < this.storage.length)
                     this.storage[k] = this.storage[k+1];
                 else
                     this.storage[k] = null;
             }
         }
+        this.storageSize--;
     }
 
     /**
      * @return array, contains only Resumes in storage (without null)
      */
     Resume[] getAll() {
-        int storageSize = this.size();
-        Resume[] newStorage = new Resume[storageSize];
-        for (int i=0;i<storageSize;i++){
+        Resume[] newStorage = new Resume[this.storageSize];
+        for (int i=0;i<this.storageSize;i++){
            newStorage[i] = this.storage[i];
         }
         return newStorage;
     }
 
     int size() {
-        int storageSize = 0;
-        for(int i=0;i<this.storage.length;i++){
-            if (this.storage[i] != null)
-                storageSize++;
-            else
-                break;
-        }
-        return storageSize;
+        return this.storageSize;
     }
 }

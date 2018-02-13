@@ -39,10 +39,9 @@ public class ArrayStorage {
             return;
         }
         int index = this.getIndex(r.getUuid());
-        if (index == -1){
-            System.out.println("Resume is not found");
-            return;
-        }
+        if (index == -1)
+           return;
+
         this.storage[index] = r;
         return;
     }
@@ -53,10 +52,9 @@ public class ArrayStorage {
             return null;
         }
         int index = this.getIndex(uuid);
-        if (index == -1){
-            System.out.println("Resume is not found");
+        if (index == -1)
             return null;
-        }
+
         return this.storage[index];
     }
 
@@ -66,10 +64,9 @@ public class ArrayStorage {
             return;
         }
         int index = this.getIndex(uuid);
-        if (index == -1){
-            System.out.println("Resume is not found");
+        if (index == -1)
             return;
-        }
+
         this.storage[index] = this.storage[this.size-1];
         this.storage[this.size-1] = null;
         this.size--;
@@ -92,6 +89,7 @@ public class ArrayStorage {
             if (this.storage[i] != null && uuid.equals(this.storage[i].getUuid()))
                 return i;
         }
+        System.out.println("Resume is not found");
         return -1;
     }
 }

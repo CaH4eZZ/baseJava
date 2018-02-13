@@ -61,6 +61,7 @@ public class ArrayStorage {
                 return this.storage[i];
             }
         }
+        System.out.println("Resume is not found");
         return null;
     }
 
@@ -78,6 +79,7 @@ public class ArrayStorage {
                 return;
             }
         }
+        System.out.println("Resume is not found");
     }
 
     /**

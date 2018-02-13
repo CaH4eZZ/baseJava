@@ -17,8 +17,5 @@ public class Resume {
     }
 
     @Override
-    public String toString() {
-        return uuid;
-    }
-
+    public String toString() {return uuid;}
 }

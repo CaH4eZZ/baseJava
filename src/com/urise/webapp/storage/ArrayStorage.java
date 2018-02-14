@@ -14,23 +14,23 @@ public class ArrayStorage {
     private int size = 0;
 
     public void clear() {
-        this.storage = new Resume[this.storageMaxSize];
-        this.size = 0;
+        storage = new Resume[storageMaxSize];
+        size = 0;
     }
 
     public void save(Resume r) {
-        if (this.size >= this.storageMaxSize){
+        if (size >= storageMaxSize){
             System.out.println("Array storage is full");
             return;
         } else if (r == null) {
             System.out.println("Can't save empty Resume");
             return;
-        } if (this.getIndex(r.getUuid()) != -1){
+        } if (getIndex(r.getUuid()) != -1){
             System.out.println("Can't save Resume, because already exist.");
             return;
         }
-        this.storage[this.size] = r;
-        this.size++;
+        storage[size] = r;
+        size++;
     }
 
     public void update(Resume r){
@@ -38,12 +38,12 @@ public class ArrayStorage {
             System.out.println("Resume is empty.");
             return;
         }
-        int index = this.getIndex(r.getUuid());
-        if (index == -1)
-           return;
-
-        this.storage[index] = r;
-        return;
+        int index = getIndex(r.getUuid());
+        if (index == -1) {
+            System.out.println("Resume is not found");
+            return;
+        }
+        storage[index] = r;
     }
 
     public Resume get(String uuid) {
@@ -51,11 +51,12 @@ public class ArrayStorage {
             System.out.println("uuid is null");
             return null;
         }
-        int index = this.getIndex(uuid);
-        if (index == -1)
+        int index = getIndex(uuid);
+        if (index == -1) {
+            System.out.println("Resume is not found");
             return null;
-
-        return this.storage[index];
+        }
+        return storage[index];
     }
 
     public void delete(String uuid) {
@@ -63,13 +64,15 @@ public class ArrayStorage {
             System.out.println("uuid can't be null");
             return;
         }
-        int index = this.getIndex(uuid);
-        if (index == -1)
+        int index = getIndex(uuid);
+        if (index == -1) {
+            System.out.println("Resume is not found");
             return;
+        }
 
-        this.storage[index] = this.storage[this.size-1];
-        this.storage[this.size-1] = null;
-        this.size--;
+        storage[index] = storage[size-1];
+        storage[size-1] = null;
+        size--;
         return;
     }
 
@@ -77,19 +80,18 @@ public class ArrayStorage {
      * @return array, contains only Resumes in storage (without null)
      */
     public Resume[] getAll() {
-        return Arrays.copyOf(this.storage,this.size());
+        return Arrays.copyOf(storage,size());
     }
 
     public int size() {
-        return this.size;
+        return size;
     }
 
     private int getIndex (String uuid){
-        for (int i=0;i<this.size;i++){
-            if (this.storage[i] != null && uuid.equals(this.storage[i].getUuid()))
+        for (int i=0;i<size;i++){
+            if (storage[i] != null && uuid.equals(storage[i].getUuid()))
                 return i;
         }
-        System.out.println("Resume is not found");
         return -1;
     }
 }

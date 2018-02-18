@@ -1,12 +1,18 @@
-package com.urise.webapp.model;
+package ru.javawebinar.basejava.model;
 
 /**
- * com.urise.webapp.model.com.urise.webapp.model.Resume class
+ * ru.javawebinar.basejava.model.Resume class
  */
-public class Resume {
+public class Resume implements Comparable<Resume>{
 
     // Unique identifier
     private String uuid;
+
+    public Resume (){}
+
+    public Resume (String uuid){
+        this.uuid = uuid;
+    }
 
     public void setUuid(String uuid) {
         this.uuid = uuid;
@@ -32,5 +38,10 @@ public class Resume {
     @Override
     public int hashCode() {
         return uuid.hashCode();
+    }
+
+    @Override
+    public int compareTo(Resume o) {
+        return uuid.compareTo(o.uuid);
     }
 }

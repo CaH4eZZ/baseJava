@@ -38,6 +38,7 @@ public class ArrayStorage extends AbstarctStorage {
 
         storage[index] = storage[size - 1];
         storage[size - 1] = null;
+        size--;
     }
 
     protected int getIndex(String uuid) {

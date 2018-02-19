@@ -11,34 +11,15 @@ public class SortedArrayStorage extends AbstarctStorage {
         return Arrays.binarySearch(storage, 0, size, new Resume(uuid));
     }
 
-     @Override
-    public void save(Resume r) {
-        if (size >= MAX_SIZE) {
-            System.out.println("Array storage is full");
-            return;
-        }
-        int index = getIndex(r.getUuid());
-        if (index >= 0) {
-            System.out.println("Can't save Resume, because already exist.");
-            return;
-        }
-        int newIndex = -index - 1;
-        System.arraycopy(storage, newIndex, storage, newIndex + 1, size - newIndex);
-        storage[newIndex] = r;
+    @Override
+    protected void insertIntoStorage(Resume r, int index){
+        index = -index - 1;
+        System.arraycopy(storage, index, storage, index + 1, size - index);
+        storage[index] = r;
         size++;
     }
 
-    @Override
-    public void delete(String uuid) {
-        if (uuid == null || "".equals(uuid)) {
-            System.out.println("uuid can't be null");
-            return;
-        }
-        int index = getIndex(uuid);
-        if (index < 0) {
-            System.out.println("Resume is not found");
-            return;
-        }
+    protected void deleteFromStorage(String uuid, int index){
         //если массив длинной 1 или удалется последний элемент
         if (size == 1 || index == MAX_SIZE) {
             storage[index] = null;
@@ -46,6 +27,5 @@ public class SortedArrayStorage extends AbstarctStorage {
             System.arraycopy(storage, index + 1, storage, index, size);
             storage[size - 1] = null;
         }
-        size--;
     }
 }

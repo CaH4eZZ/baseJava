@@ -49,5 +49,38 @@ public abstract class AbstarctStorage implements Storage {
         size = 0;
     }
 
+    public void save(Resume r){
+        if (size >= MAX_SIZE) {
+            System.out.println("Array storage is full");
+            return;
+        } else if (r == null) {
+            System.out.println("Can't save empty Resume");
+            return;
+        }
+        int index = getIndex(r.getUuid());
+        if (index >= 0) {
+            System.out.println("Can't save Resume, because already exist.");
+            return;
+        }
+        insertIntoStorage(r, index);
+        size++;
+    }
+
+    public void delete(String uuid) {
+        if (uuid == null || "".equals(uuid)) {
+            System.out.println("uuid can't be null");
+            return;
+        }
+        int index = getIndex(uuid);
+        if (index < 0) {
+            System.out.println("Resume is not found");
+            return;
+        }
+        deleteFromStorage(uuid, index);
+        size--;
+    }
+
     protected abstract int getIndex(String uuid);
+    protected abstract void insertIntoStorage(Resume r, int index);
+    protected abstract void deleteFromStorage(String uuid, int index);
 }

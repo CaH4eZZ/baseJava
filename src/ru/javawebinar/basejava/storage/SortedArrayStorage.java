@@ -44,6 +44,7 @@ public class SortedArrayStorage extends AbstarctStorage {
             storage[index] = null;
         } else {
             System.arraycopy(storage, index + 1, storage, index, size);
+            storage[size - 1] = null;
         }
         size--;
     }

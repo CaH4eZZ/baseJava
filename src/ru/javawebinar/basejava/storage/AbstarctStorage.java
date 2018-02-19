@@ -20,7 +20,7 @@ public abstract class AbstarctStorage implements Storage {
             return;
         }
         int index = getIndex(r.getUuid());
-        if (index == -1) {
+        if (index < 0) {
             System.out.println("Resume is not found");
             return;
         }
@@ -33,7 +33,7 @@ public abstract class AbstarctStorage implements Storage {
             return null;
         }
         int index = getIndex(uuid);
-        if (index == -1) {
+        if (index < 0) {
             System.out.println("Resume is not found");
             return null;
         }

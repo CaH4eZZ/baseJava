@@ -16,7 +16,6 @@ public class SortedArrayStorage extends AbstarctStorage {
         index = -index - 1;
         System.arraycopy(storage, index, storage, index + 1, size - index);
         storage[index] = r;
-        size++;
     }
 
     protected void deleteFromStorage(String uuid, int index){

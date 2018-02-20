@@ -21,8 +21,9 @@ public class SortedArrayStorage extends AbstarctStorage {
 
     protected void deleteFromStorage(String uuid, int index) {
         //если массив длинной 1 или удалется последний элемент
-        if (size > 1 && index < MAX_SIZE-1) {
-            System.arraycopy(storage, index + 1, storage, index, size - (index+1));
+        int countEl = size - (index+1);
+        if (countEl > 0) {
+            System.arraycopy(storage, index + 1, storage, index, countEl);
         }
     }
 }

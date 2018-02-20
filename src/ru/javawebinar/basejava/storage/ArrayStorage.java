@@ -15,12 +15,11 @@ public class ArrayStorage extends AbstarctStorage {
         return -1;
     }
 
-    protected void insertIntoStorage(Resume r, int index){
+    protected void insertIntoStorage(Resume r, int index) {
         storage[size] = r;
     }
 
-    protected void deleteFromStorage(String uuid, int index){
+    protected void deleteFromStorage(String uuid, int index) {
         storage[index] = storage[size - 1];
-        storage[size - 1] = null;
     }
 }

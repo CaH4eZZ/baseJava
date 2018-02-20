@@ -5,7 +5,7 @@ import ru.javawebinar.basejava.model.Resume;
 import java.util.Arrays;
 
 public abstract class AbstarctStorage implements Storage {
-    protected static final int MAX_SIZE = 10000;
+    protected static final int MAX_SIZE = 5;
 
     protected Resume[] storage = new Resume[MAX_SIZE];
     protected int size = 0;
@@ -45,11 +45,11 @@ public abstract class AbstarctStorage implements Storage {
     }
 
     public void clear() {
-        Arrays.fill(storage,0,size,null);
+        Arrays.fill(storage, 0, size, null);
         size = 0;
     }
 
-    public void save(Resume r){
+    public void save(Resume r) {
         if (size >= MAX_SIZE) {
             System.out.println("Array storage is full");
             return;
@@ -78,9 +78,12 @@ public abstract class AbstarctStorage implements Storage {
         }
         deleteFromStorage(uuid, index);
         size--;
+        storage[size] = null;
     }
 
     protected abstract int getIndex(String uuid);
+
     protected abstract void insertIntoStorage(Resume r, int index);
+
     protected abstract void deleteFromStorage(String uuid, int index);
 }

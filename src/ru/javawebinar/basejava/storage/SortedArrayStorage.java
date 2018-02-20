@@ -12,19 +12,17 @@ public class SortedArrayStorage extends AbstarctStorage {
     }
 
     @Override
-    protected void insertIntoStorage(Resume r, int index){
+    protected void insertIntoStorage(Resume r, int index) {
         index = -index - 1;
+
         System.arraycopy(storage, index, storage, index + 1, size - index);
         storage[index] = r;
     }
 
-    protected void deleteFromStorage(String uuid, int index){
+    protected void deleteFromStorage(String uuid, int index) {
         //если массив длинной 1 или удалется последний элемент
-        if (size == 1 || index == MAX_SIZE) {
-            storage[index] = null;
-        } else {
-            System.arraycopy(storage, index + 1, storage, index, size);
-            storage[size - 1] = null;
+        if (size > 1 && index < MAX_SIZE-1) {
+            System.arraycopy(storage, index + 1, storage, index, size - (index+1));
         }
     }
 }

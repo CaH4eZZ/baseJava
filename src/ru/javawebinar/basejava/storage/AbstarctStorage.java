@@ -1,5 +1,8 @@
 package ru.javawebinar.basejava.storage;
 
+import ru.javawebinar.basejava.exception.ExistStorageException;
+import ru.javawebinar.basejava.exception.NotExistStorageException;
+import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.Resume;
 
 import java.util.Arrays;
@@ -21,8 +24,7 @@ public abstract class AbstarctStorage implements Storage {
         }
         int index = getIndex(r.getUuid());
         if (index < 0) {
-            System.out.println("Resume is not found");
-            return;
+            throw new NotExistStorageException(r.getUuid());
         }
         storage[index] = r;
     }
@@ -34,8 +36,7 @@ public abstract class AbstarctStorage implements Storage {
         }
         int index = getIndex(uuid);
         if (index < 0) {
-            System.out.println("Resume is not found");
-            return null;
+            throw new NotExistStorageException(uuid);
         }
         return storage[index];
     }
@@ -51,16 +52,14 @@ public abstract class AbstarctStorage implements Storage {
 
     public void save(Resume r) {
         if (size >= MAX_SIZE) {
-            System.out.println("Array storage is full");
-            return;
+            throw new StorageException("Storage overflow", r.getUuid());
         } else if (r == null) {
             System.out.println("Can't save empty Resume");
             return;
         }
         int index = getIndex(r.getUuid());
         if (index >= 0) {
-            System.out.println("Can't save Resume, because already exist.");
-            return;
+            throw new ExistStorageException(r.getUuid());
         }
         insertIntoStorage(r, index);
         size++;
@@ -73,8 +72,7 @@ public abstract class AbstarctStorage implements Storage {
         }
         int index = getIndex(uuid);
         if (index < 0) {
-            System.out.println("Resume is not found");
-            return;
+            throw new NotExistStorageException(uuid);
         }
         deleteFromStorage(uuid, index);
         size--;

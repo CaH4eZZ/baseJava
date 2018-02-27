@@ -35,7 +35,7 @@ public abstract class AbstarctStorageTest {
 
     @Test
     public void size() {
-        Assert.assertEquals(4,storage.size());
+        assetSize(3);
     }
 
     @Test
@@ -53,7 +53,7 @@ public abstract class AbstarctStorageTest {
 
     @Test
     public void getAll() {
-        Resume[] expectedArray = new Resume[4];
+        Resume[] expectedArray = new Resume[3];
         expectedArray[0] = new Resume(UUID_1);
         expectedArray[1] = new Resume(UUID_2);
         expectedArray[2] = new Resume(UUID_3);
@@ -69,6 +69,8 @@ public abstract class AbstarctStorageTest {
         Resume r4 = new Resume(UUID_4);
         storage.save(r4);
         Assert.assertEquals(r4, storage.get(UUID_4));
+
+        assetSize(4);
     }
 
     @Test
@@ -79,6 +81,8 @@ public abstract class AbstarctStorageTest {
         for(Resume resume : resumeArray){
             Assert.assertNotEquals(r1, resume);
         }
+
+        assetSize(2);
     }
 
     @Test(expected = ExistStorageException.class)
@@ -96,5 +100,9 @@ public abstract class AbstarctStorageTest {
         for(int i=storage.size(); i<=AbstarctStorage.MAX_SIZE; i++) {
             storage.save(new Resume());
         }
+    }
+
+    private void assetSize(int size){
+        Assert.assertEquals(size,storage.size());
     }
 }

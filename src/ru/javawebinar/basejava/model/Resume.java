@@ -5,20 +5,16 @@ import java.util.UUID;
 /**
  * ru.javawebinar.basejava.model.Resume class
  */
-public class Resume implements Comparable<Resume>{
+public class Resume implements Comparable<Resume> {
 
     // Unique identifier
-    private String uuid;
+    private final String uuid;
 
-    public Resume (){
+    public Resume() {
         this(UUID.randomUUID().toString());
     }
 
-    public Resume (String uuid){
-        this.uuid = uuid;
-    }
-
-    public void setUuid(String uuid) {
+    public Resume(String uuid) {
         this.uuid = uuid;
     }
 
@@ -27,7 +23,9 @@ public class Resume implements Comparable<Resume>{
     }
 
     @Override
-    public String toString() {return uuid;}
+    public String toString() {
+        return uuid;
+    }
 
     @Override
     public boolean equals(Object o) {

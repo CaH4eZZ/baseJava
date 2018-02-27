@@ -19,8 +19,9 @@ public class SortedArrayStorage extends AbstarctStorage {
         storage[index] = r;
     }
 
+    @Override
     protected void deleteFromStorage(String uuid, int index) {
-        int countEl = size - (index+1);
+        int countEl = size - (index + 1);
         if (countEl > 0) {
             System.arraycopy(storage, index + 1, storage, index, countEl);
         }

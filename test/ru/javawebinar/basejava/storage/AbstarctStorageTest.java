@@ -30,7 +30,7 @@ public abstract class AbstarctStorageTest {
     @Test
     public void clear() {
         storage.clear();
-        Assert.assertEquals(0,storage.size());
+        assetSize(0);
     }
 
     @Test
@@ -40,15 +40,15 @@ public abstract class AbstarctStorageTest {
 
     @Test
     public void update() {
-        Resume r3 = new Resume(UUID_3);
-        storage.update(r3);
-        Assert.assertEquals(r3, storage.get(UUID_3));
+        Resume r2 = new Resume(UUID_2);
+        storage.update(r2);
+        Assert.assertEquals(r2, storage.get(r2.getUuid()));
     }
 
     @Test
     public void get() {
         Resume r2 = new Resume(UUID_2);
-        Assert.assertEquals(r2,storage.get(UUID_2));
+        Assert.assertEquals(r2,storage.get(r2.getUuid()));
     }
 
     @Test
@@ -68,7 +68,7 @@ public abstract class AbstarctStorageTest {
     public void save() {
         Resume r4 = new Resume(UUID_4);
         storage.save(r4);
-        Assert.assertEquals(r4, storage.get(UUID_4));
+        Assert.assertEquals(r4, storage.get(r4.getUuid()));
 
         assetSize(4);
     }

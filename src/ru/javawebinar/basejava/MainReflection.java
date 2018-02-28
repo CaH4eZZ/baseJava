@@ -18,6 +18,6 @@ public class MainReflection {
         System.out.println(r);
 
         Method method = resumeClass.getMethod("toString");
-        System.out.println(method.invoke(r,null));
+        System.out.println(method.invoke(r));
     }
 }

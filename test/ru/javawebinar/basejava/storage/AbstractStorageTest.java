@@ -5,10 +5,11 @@ import org.junit.Before;
 import org.junit.Test;
 import ru.javawebinar.basejava.exception.ExistStorageException;
 import ru.javawebinar.basejava.exception.NotExistStorageException;
-import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.Resume;
 
-public abstract class AbstarctStorageTest {
+import java.util.Arrays;
+
+public abstract class AbstractStorageTest {
     protected Storage storage;
     private final String UUID_1 = "uuid1";
     private final Resume RESUME_1 = new Resume(UUID_1);
@@ -19,7 +20,7 @@ public abstract class AbstarctStorageTest {
     private final String UUID_4 = "uuid4";
     private final Resume RESUME_4 = new Resume(UUID_4);
 
-    public AbstarctStorageTest(Storage storage) {
+    public AbstractStorageTest(Storage storage) {
         this.storage = storage;
     }
 
@@ -61,7 +62,7 @@ public abstract class AbstarctStorageTest {
         expectedArray[2] = RESUME_3;
 
         Resume[] actualArray = storage.getAll();
-
+        Arrays.sort(actualArray);
         Assert.assertArrayEquals(expectedArray, actualArray);
     }
 
@@ -70,7 +71,6 @@ public abstract class AbstarctStorageTest {
     public void save() {
         storage.save(RESUME_4);
         Assert.assertEquals(RESUME_4, storage.get(RESUME_4.getUuid()));
-
         assetSize(4);
     }
 
@@ -94,18 +94,6 @@ public abstract class AbstarctStorageTest {
     @Test(expected = NotExistStorageException.class)
     public void NotExistStorageExceptionTest() {
         storage.get(UUID_4);
-    }
-
-    @Test(expected = StorageException.class)
-    public void StorageExceptionTest() {
-        try {
-            for (int i = storage.size(); i < AbstarctStorage.MAX_SIZE; i++) {
-                storage.save(new Resume());
-            }
-        } catch (StorageException e) {
-            Assert.fail();
-        }
-        storage.save(new Resume());
     }
 
     private void assetSize(int size) {

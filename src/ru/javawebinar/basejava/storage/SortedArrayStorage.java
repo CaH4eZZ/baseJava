@@ -4,7 +4,7 @@ import ru.javawebinar.basejava.model.Resume;
 
 import java.util.Arrays;
 
-public class SortedArrayStorage extends AbstarctStorage {
+public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
     protected int getIndex(String uuid) {
@@ -25,5 +25,6 @@ public class SortedArrayStorage extends AbstarctStorage {
         if (countEl > 0) {
             System.arraycopy(storage, index + 1, storage, index, countEl);
         }
+        storage[size-1] = null;
     }
 }

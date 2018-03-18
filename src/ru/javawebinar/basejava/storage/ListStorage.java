@@ -69,7 +69,7 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     protected boolean checkIndexOnExist(Object index) {
-        if ((Integer) index >= 0) return true;
+        if ((int) index >= 0) return true;
         return false;
     }
 }

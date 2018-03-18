@@ -13,7 +13,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
     protected void setElement(Resume r, Object index) {
-        int i = -(Integer) index - 1;
+        int i = -(int) index - 1;
 
         System.arraycopy(storage, i, storage, i + 1, size - i);
         storage[i] = r;
@@ -21,7 +21,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
     protected void deleteElement(String uuid, Object index) {
-        int i = (Integer) index;
+        int i = (int) index;
         int countEl = size - (i + 1);
         if (countEl > 0) {
             System.arraycopy(storage, i + 1, storage, i, countEl);

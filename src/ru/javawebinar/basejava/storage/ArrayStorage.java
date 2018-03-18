@@ -22,6 +22,6 @@ public class ArrayStorage extends AbstractArrayStorage {
 
     @Override
     protected void deleteElement(String uuid, Object index) {
-        storage[(Integer) index] = storage[size - 1];
+        storage[(int) index] = storage[size - 1];
     }
 }

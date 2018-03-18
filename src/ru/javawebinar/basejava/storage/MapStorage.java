@@ -6,25 +6,30 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MapStorage extends AbstractStorage {
-    private Map<String,Resume> storage;
+    private Map<String, Resume> storage;
 
-    public MapStorage(){
-        storage = new HashMap<String,Resume>();
+    public MapStorage() {
+        storage = new HashMap<String, Resume>();
     }
 
-    public Resume[] getAll(){
+    public Resume[] getAll() {
         Resume[] r = new Resume[storage.size()];
         return storage.values().toArray(r);
     }
 
     @Override
-    protected int getIndex(String uuid) {
-        return storage.containsKey(uuid) ? 0 : -1;
+    protected Object getIndex(String uuid) {
+        return storage.containsKey(uuid) ? uuid : null;
     }
 
     @Override
-    protected Resume getElement(int index, String uuid) {
-        return storage.get(uuid);
+    protected Resume getElement(Object index) {
+        return storage.get((String) index);
+    }
+
+    @Override
+    public int size() {
+        return storage.size();
     }
 
     @Override
@@ -38,17 +43,23 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected void insertIntoStorage(Resume r, int index) {
-        storage.put(r.getUuid(),r);
+    protected void insertIntoStorage(Resume r, Object index) {
+        storage.put(r.getUuid(), r);
     }
 
     @Override
-    protected void updateElement(Resume r, int index) {
+    protected void updateElement(Resume r, Object index) {
         storage.replace(r.getUuid(), r);
     }
 
     @Override
-    protected void deleteFromStorage(String uuid, int index) {
+    protected void deleteFromStorage(String uuid, Object index) {
         storage.remove(uuid);
+    }
+
+    @Override
+    protected boolean checkIndexOnExist(Object index) {
+        if (index != null) return true;
+        return false;
     }
 }

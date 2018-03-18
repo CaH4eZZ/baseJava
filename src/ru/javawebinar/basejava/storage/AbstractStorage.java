@@ -6,15 +6,11 @@ import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.Resume;
 
 public abstract class AbstractStorage implements Storage {
-    protected int size = 0;
 
-    public int size() {
-        return size;
-    }
+    abstract public int size();
 
     public void clear() {
         clearStorage();
-        size = 0;
     }
 
     public Resume get(String uuid) {
@@ -22,11 +18,11 @@ public abstract class AbstractStorage implements Storage {
             System.out.println("uuid is null");
             return null;
         }
-        int index = getIndex(uuid);
-        if (index < 0) {
+        Object index = getIndex(uuid);
+        if (!checkIndexOnExist(index)) {
             throw new NotExistStorageException(uuid);
         }
-        return getElement(index, uuid);
+        return getElement(index);
     }
 
     public void save(Resume r) {
@@ -37,12 +33,11 @@ public abstract class AbstractStorage implements Storage {
             return;
         }
 
-        int index = getIndex(r.getUuid());
-        if (index >= 0) {
+        Object index = getIndex(r.getUuid());
+        if (checkIndexOnExist(index)) {
             throw new ExistStorageException(r.getUuid());
         }
         insertIntoStorage(r, index);
-        size++;
     }
 
     public void update(Resume r) {
@@ -50,8 +45,8 @@ public abstract class AbstractStorage implements Storage {
             System.out.println("Resume is empty.");
             return;
         }
-        int index = getIndex(r.getUuid());
-        if (index < 0) {
+        Object index = getIndex(r.getUuid());
+        if (!checkIndexOnExist(index)) {
             throw new NotExistStorageException(r.getUuid());
         }
         updateElement(r, index);
@@ -62,26 +57,26 @@ public abstract class AbstractStorage implements Storage {
             System.out.println("uuid can't be null");
             return;
         }
-        int index = getIndex(uuid);
-        if (index < 0) {
+        Object index = getIndex(uuid);
+        if (!checkIndexOnExist(index)) {
             throw new NotExistStorageException(uuid);
         }
         deleteFromStorage(uuid, index);
-        size--;
     }
 
     protected abstract void clearStorage();
 
-    protected abstract int getIndex(String uuid);
+    protected abstract Object getIndex(String uuid);
 
-    protected abstract Resume getElement(int index, String uuid);
+    protected abstract Resume getElement(Object index);
 
-    protected abstract void insertIntoStorage(Resume r, int index);
+    protected abstract void insertIntoStorage(Resume r, Object index);
 
     protected abstract boolean checkOverflow();
 
-    protected abstract void updateElement(Resume r, int index);
+    protected abstract void updateElement(Resume r, Object index);
 
-    protected abstract void deleteFromStorage(String uuid, int index);
+    protected abstract void deleteFromStorage(String uuid, Object index);
 
+    protected abstract boolean checkIndexOnExist(Object index);
 }

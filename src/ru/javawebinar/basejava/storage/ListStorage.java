@@ -24,7 +24,7 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected void clearStorage() {
+    public void clear() {
         storage.clear();
     }
 
@@ -44,12 +44,7 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     protected Resume getElement(Object index) {
-        return storage.get((Integer) index);
-    }
-
-    @Override
-    protected boolean checkOverflow() {
-        return false;
+        return storage.get((int) index);
     }
 
     @Override
@@ -69,8 +64,7 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     protected boolean checkIndexOnExist(Object index) {
-        if ((int) index >= 0) return true;
-        return false;
+        return ((int) index >= 0);
     }
 }
 

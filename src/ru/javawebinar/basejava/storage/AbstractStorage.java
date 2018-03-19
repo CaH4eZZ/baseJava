@@ -2,16 +2,11 @@ package ru.javawebinar.basejava.storage;
 
 import ru.javawebinar.basejava.exception.ExistStorageException;
 import ru.javawebinar.basejava.exception.NotExistStorageException;
-import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.Resume;
 
 public abstract class AbstractStorage implements Storage {
 
     abstract public int size();
-
-    public void clear() {
-        clearStorage();
-    }
 
     public Resume get(String uuid) {
         if (uuid == null) {
@@ -26,9 +21,7 @@ public abstract class AbstractStorage implements Storage {
     }
 
     public void save(Resume r) {
-        if (checkOverflow()) {
-            throw new StorageException("Storage overflow", r.getUuid());
-        } else if (r == null) {
+        if (r == null) {
             System.out.println("Can't save empty Resume");
             return;
         }
@@ -53,7 +46,7 @@ public abstract class AbstractStorage implements Storage {
     }
 
     public void delete(String uuid) {
-        if (uuid == null || "".equals(uuid)) {
+        if (uuid == null) {
             System.out.println("uuid can't be null");
             return;
         }
@@ -64,15 +57,11 @@ public abstract class AbstractStorage implements Storage {
         deleteFromStorage(uuid, index);
     }
 
-    protected abstract void clearStorage();
-
     protected abstract Object getIndex(String uuid);
 
     protected abstract Resume getElement(Object index);
 
     protected abstract void insertIntoStorage(Resume r, Object index);
-
-    protected abstract boolean checkOverflow();
 
     protected abstract void updateElement(Resume r, Object index);
 

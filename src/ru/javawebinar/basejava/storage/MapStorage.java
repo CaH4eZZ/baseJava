@@ -19,12 +19,12 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     protected Object getIndex(String uuid) {
-        return storage.containsKey(uuid) ? uuid : null;
+        return uuid;
     }
 
     @Override
     protected Resume getElement(Object index) {
-        return storage.get((String) index);
+        return storage.get((String)index);
     }
 
     @Override
@@ -33,13 +33,8 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected void clearStorage() {
+    public void clear() {
         storage.clear();
-    }
-
-    @Override
-    protected boolean checkOverflow() {
-        return false;
     }
 
     @Override
@@ -59,7 +54,6 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     protected boolean checkIndexOnExist(Object index) {
-        if (index != null) return true;
-        return false;
+        return storage.containsKey((String)index);
     }
 }

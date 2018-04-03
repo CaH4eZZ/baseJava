@@ -36,7 +36,7 @@ public class MainArray {
                     break;
                 case "save":
                     r = new Resume(uuid);
-                    ARRAY_STORAGE.save(r);
+                     ARRAY_STORAGE.save(r);
                     printAll();
                     break;
                 case "delete":
@@ -59,7 +59,7 @@ public class MainArray {
         }
     }
 
-    static void printAll() {
+    private static void printAll() {
         Resume[] all = ARRAY_STORAGE.getAll();
         System.out.println("----------------------------");
         if (all.length == 0) {

@@ -5,10 +5,10 @@ import ru.javawebinar.basejava.model.Resume;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MapStorage extends AbstractStorage {
-    private Map<Resume, Resume> storage;
+public class MapUuidStorage extends AbstractStorage {
+    private Map<String, Resume> storage;
 
-    public MapStorage() {
+    public MapUuidStorage() {
         storage = new HashMap<>();
     }
 
@@ -19,12 +19,12 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     protected Object getIndex(String uuid) {
-        return new Resume(uuid);
+        return uuid;
     }
 
     @Override
-    protected Resume getElement(Object searchKey) {
-        return storage.get(searchKey);
+    protected Resume getElement(Object index) {
+        return storage.get(index);
     }
 
     @Override
@@ -39,12 +39,12 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     protected void insertIntoStorage(Resume r, Object index) {
-        storage.put(r, r);
+        storage.put(r.getUuid(), r);
     }
 
     @Override
     protected void updateElement(Resume r, Object index) {
-        storage.replace(r, r);
+        storage.replace(r.getUuid(), r);
     }
 
     @Override

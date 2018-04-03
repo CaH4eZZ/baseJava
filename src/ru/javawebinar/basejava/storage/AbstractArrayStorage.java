@@ -53,13 +53,13 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected void deleteFromStorage(String uuid, Object index) {
-        deleteElement(uuid, index);
+    protected void deleteFromStorage(Object index) {
+        deleteElement(index);
         storage[size - 1] = null;
         size--;
     }
 
     abstract protected void setElement(Resume r, Object index);
 
-    abstract protected void deleteElement(String uuid, Object index);
+    abstract protected void deleteElement(Object index);
 }

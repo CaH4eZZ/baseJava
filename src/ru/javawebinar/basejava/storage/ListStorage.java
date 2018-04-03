@@ -10,7 +10,7 @@ public class ListStorage extends AbstractStorage {
     private List<Resume> storage;
 
     public ListStorage() {
-        storage = new ArrayList<Resume>();
+        storage = new ArrayList<>();
     }
 
     public Resume[] getAll() {
@@ -58,7 +58,7 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected void deleteFromStorage(String uuid, Object index) {
+    protected void deleteFromStorage(Object index) {
         storage.remove((int) index);
     }
 

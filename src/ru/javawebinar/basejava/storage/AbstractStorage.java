@@ -4,9 +4,19 @@ import ru.javawebinar.basejava.exception.ExistStorageException;
 import ru.javawebinar.basejava.exception.NotExistStorageException;
 import ru.javawebinar.basejava.model.Resume;
 
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+
 public abstract class AbstractStorage implements Storage {
 
     abstract public int size();
+
+    public List<Resume> getAllSorted(){
+        Resume[] arr = getAll();
+        Arrays.sort(arr, Comparator.comparing(Resume::getFullName));
+        return Arrays.asList(arr);
+    }
 
     public Resume get(String uuid) {
         if (uuid == null) {
@@ -54,7 +64,7 @@ public abstract class AbstractStorage implements Storage {
         if (!checkIndexOnExist(index)) {
             throw new NotExistStorageException(uuid);
         }
-        deleteFromStorage(uuid, index);
+        deleteFromStorage(index);
     }
 
     protected abstract Object getIndex(String uuid);
@@ -65,7 +75,7 @@ public abstract class AbstractStorage implements Storage {
 
     protected abstract void updateElement(Resume r, Object index);
 
-    protected abstract void deleteFromStorage(String uuid, Object index);
+    protected abstract void deleteFromStorage(Object index);
 
     protected abstract boolean checkIndexOnExist(Object index);
 }

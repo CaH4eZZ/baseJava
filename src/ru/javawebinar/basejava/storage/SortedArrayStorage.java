@@ -22,11 +22,14 @@ public class SortedArrayStorage extends AbstractArrayStorage {
         }
     };*/
     //лямбда
-    private static final Comparator<Resume> RESUME_COMPARATOR = (o1, o2) -> o1.getUuid().compareTo(o2.getUuid());
+    //private static final Comparator<Resume> RESUME_COMPARATOR = (o1, o2) -> o1.getUuid().compareTo(o2.getUuid());
+
+    //Comparator.comparing
+    private static final Comparator<Resume> RESUME_COMPARATOR = Comparator.comparing(Resume::getUuid);
 
     @Override
     protected Object getIndex(String uuid) {
-        return Arrays.binarySearch(storage, 0, size, new Resume(uuid),RESUME_COMPARATOR);
+        return Arrays.binarySearch(storage, 0, size, new Resume(uuid,""),RESUME_COMPARATOR);
     }
 
     @Override

@@ -14,7 +14,8 @@ public abstract class AbstractStorage implements Storage {
 
     public List<Resume> getAllSorted(){
         Resume[] arr = getAll();
-        Arrays.sort(arr, Comparator.comparing(Resume::getFullName));
+        Arrays.sort(arr, Comparator.comparing(Resume::getFullName)
+                                     .thenComparing(Comparator.comparing(Resume::getUuid)));
         return Arrays.asList(arr);
     }
 
@@ -78,4 +79,7 @@ public abstract class AbstractStorage implements Storage {
     protected abstract void deleteFromStorage(Object index);
 
     protected abstract boolean checkIndexOnExist(Object index);
+
+    protected abstract Resume[] getAll();
+
 }
